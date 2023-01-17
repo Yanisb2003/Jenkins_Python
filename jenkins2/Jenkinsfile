@@ -6,6 +6,11 @@ pipeline {
     }
     agent any
     stages {
+        stage('Cloning our Git') {
+            steps {
+                git 'https://github.com/Yanisb2003/Jenkins_Python'
+            }
+        } 
         stage('Building our image') {
             steps {
                 script {
