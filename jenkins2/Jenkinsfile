@@ -14,7 +14,7 @@ pipeline {
         stage('Building our image') {
             steps {
                 script {
-                    sh 'docker build -t yanishub/jenkins_docker:3 .'
+                    sh 'sudo docker build -t yanishub/jenkins_docker:3 .'
                 }
             }
         }
