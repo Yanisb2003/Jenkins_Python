@@ -13,9 +13,7 @@ pipeline {
         }
         stage('Building our image') {
             steps {
-                script {
-                    dockerImage = docker build -p registry + ":$BUILD_NUMBER" .
-                }
+                sh 'docker build -t yanishub/jenkins_docker:latest'
             }
         }
         stage('Deploy our image') {
