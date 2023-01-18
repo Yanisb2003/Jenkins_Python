@@ -4,8 +4,7 @@ FROM python:2-alpine
 
 WORKDIR /app
 
+COPY ../sources .
 
-COPY ./sources /app
 
-
-CMD [ "python3", "-m" , "py_compile", "sources/add2vals.py", "sources/calc.py"]
+CMD [ "python3", "-m" , "py_compile", "app/sources/add2vals.py", "app/sources/calc.py"]
