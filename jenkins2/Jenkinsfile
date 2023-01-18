@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "yanishub/jenkins_docker"
+        registry = "yanishub/hub"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
