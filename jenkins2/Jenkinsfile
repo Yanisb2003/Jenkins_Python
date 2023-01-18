@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                    sh "docker run --name deliver souaddjerfi/nextcloud_dockerfile:latest"
+                    sh "docker run  souaddjerfi/nextcloud_dockerfile:latest"
                 }
         }
     }
