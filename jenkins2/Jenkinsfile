@@ -1,7 +1,7 @@
 pipeline {
     environment {
-        registry = "yanishub/hub"
-        registryCredential = 'dockerhub_id'
+        registry = "souaddjerfi/nextcloud_dockerfile"
+        registryCredential = 'dockerhub_id1'
         dockerImage = ''
     }
     agent any
