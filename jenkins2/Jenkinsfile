@@ -1,37 +1,12 @@
-pipeline {
-    environment {
-        registry = 'yanishub1/projet_python'
-        registryCredential = 'dockerhub_id1'
-        dockerImage = ''
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'sonarqubescanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
-    agent any
-    stages {
-        stage('Cloning our Git') {
-            steps {
-                git 'https://github.com/Yanisb2003/Jenkins_Python'
-            }
-        }
-
-        stage('Building our image') {
-            steps {
-                script {
-                    dockerImage = docker.build registry + ':latest'
-                }
-            }
-        }
-        stage('Deploy our image') {
-            steps {
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                    sh 'docker run yanishub1/projet_python:latest'
-            }
-        }
-    }
+  }
 }
+
