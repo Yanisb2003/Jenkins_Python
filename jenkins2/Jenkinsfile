@@ -1,48 +1,11 @@
-pipeline {
-    environment {
-        registry = 'souaddjerfi/nextcloud_dockerfile'
-        registryCredential = 'dockerhub_id1'
-        dockerImage = ''
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
-    agent any
-    stages {
-        stage('Cloning our Git') {
-            steps {
-                git 'https://github.com/Yanisb2003/Jenkins_Python'
-            }
-        }
-
-        node {
-            stage('SCM') {
-                checkout scm
-            }
-            stage('SonarQube Analysis') {
-                def scannerHome = tool 'SonarQubeScanner'
-                withSonarQubeEnv('sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
-        stage('Building our image') {
-            steps {
-                script {
-                    dockerImage = docker.build registry + ':latest'
-                }
-            }
-        }
-        stage('Deploy our image') {
-            steps {
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                    sh 'docker run  souaddjerfi/nextcloud_dockerfile:latest'
-            }
-        }
-    }
+  }
 }
