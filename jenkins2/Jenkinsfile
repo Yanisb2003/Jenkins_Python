@@ -1,7 +1,7 @@
 pipeline {
     environment {
         registry = 'yanishub1/projet_python'
-        registryCredential = 'Dockerhub_id'
+        registryCredential = 'dockerhub'
         dockerImage = ''
     }
     agent any
