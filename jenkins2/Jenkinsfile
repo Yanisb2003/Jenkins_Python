@@ -10,32 +10,33 @@ pipeline {
             steps {
                 git 'https://github.com/Yanisb2003/Jenkins_Python'
             }
-        }
-        stage('SonarQube Analysis') {
-            def scannerHome = tool 'test_sonar'
-            withSonarQubeEnv() {
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-        }
-        stage('Building our image') {
-            steps {
-                script {
-                    dockerImage = docker.build registry + ':latest'
+
+            stage('SonarQube Analysis') {
+                def scannerHome = tool 'test_sonar'
+                withSonarQubeEnv() {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
-        }
-        stage('Deploy our image') {
-            steps {
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
+            stage('Building our image') {
+                steps {
+                    script {
+                        dockerImage = docker.build registry + ':latest'
                     }
                 }
             }
-        }
-        stage('Deliver') {
-            steps {
+            stage('Deploy our image') {
+                steps {
+                    script {
+                        docker.withRegistry('', registryCredential) {
+                            dockerImage.push()
+                        }
+                    }
+                }
+            }
+            stage('Deliver') {
+                steps {
                     sh 'docker run yanishub1/test:latest'
+                }
             }
         }
     }
