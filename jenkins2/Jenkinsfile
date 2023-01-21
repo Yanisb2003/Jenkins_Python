@@ -11,6 +11,12 @@ pipeline {
                 git 'https://github.com/Yanisb2003/Jenkins_Python'
             }
         }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'test_sonar'
+            withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
         stage('Building our image') {
             steps {
                 script {
