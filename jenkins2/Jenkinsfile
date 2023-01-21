@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = 'yanishub1/projet_python'
+        registry = 'yanishub1/application_python_asr_app'
         registryCredential = 'test'
         dockerImage = ''
     }
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                    sh 'docker run yanishub1/projet_python:latest'
+                    sh 'docker run yanishub1/application_python_asr_app:latest'
             }
         }
     }
