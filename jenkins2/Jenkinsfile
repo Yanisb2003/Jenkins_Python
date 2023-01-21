@@ -6,11 +6,12 @@ pipeline {
     }
     agent any
     stages {
-       
-        stage('SonarQube Analysis') {
-            withSonarQubeEnv('test_sonar') {
-                sh "${scannerHome}/bin/sonar-scanner"
+            stage('SonarQube Analysis') {
+                steps {
+                    withSonarQubeEnv('test_sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                }
+                }
             }
-        }
     }
 }
