@@ -8,8 +8,8 @@ pipeline {
     stages {
             stage('SonarQube Analysis') {
                 steps {
-                    withSonarQubeEnv('test_sonar') {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    withSonarQubeEnv() {
+                        sh "test_sonar/bin/sonar-scanner"
                 }
                 }
             }
