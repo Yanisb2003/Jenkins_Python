@@ -13,7 +13,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps{
-                withSonarQubeEnv('test_sonar') {
+                withSonarQubeEnv(test_sonar) {
                
                 }
             }
