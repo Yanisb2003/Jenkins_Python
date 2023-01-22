@@ -1,9 +1,4 @@
 pipeline {
-    environment {
-        registry = 'yanishub1/test'
-        registryCredential = 'test'
-        dockerImage = ''
-    }
     agent any
     stages {
     	stage('Cloning our Git') {
@@ -13,7 +8,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps{
-                withSonarQubeEnv(test_sonar) {
+                withSonarQubeEnv('test_sonar'){
                
                 }
             }
